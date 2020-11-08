@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="characterDataImage"
+            type="String" />
+
+        <variable
+            name="characterDataName"
+            type="String" />
+
+        <variable
+            name="characterDataDescription"
+            type="String" />
+
+
+        <variable
+            name="characterDataNumComics"
+            type="String" />
+
+        <variable
+            name="characterDataNumSeries"
+            type="String" />
+
+        <variable
+            name="characterDataNumEvents"
+            type="String" />
+
+        <variable
+            name="characterDataNumStories"
+            type="String" />
+
+        <variable
+            name = "activity"
+            type="com.openbank.marvelheroes.view.detail.DetailActivity" />
+
+    </data>
+
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/parent"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/colorRedMarvel">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <!-- Character Detail Section -->
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginEnd="8dp"
+                    card_view:cardCornerRadius="10dp"
+                    card_view:cardElevation="5dp"
+                    card_view:cardUseCompatPadding="true">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="8dp"
+                        android:orientation="vertical">
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <ImageView
+                                android:id="@+id/characterImage"
+                                android:layout_width="match_parent"
+                                android:layout_height="128dp"
+                                android:contentDescription="@string/content_description_character_detail_image"
+                                android:layout_marginTop="8dp"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"/>
+
+                            <TextView
+                                android:id="@+id/characterName"
+                                style="@style/CharacterDetailSectionName"
+                                android:gravity="center"
+                                android:text="@{characterDataName}"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@id/characterImage"
+                                android:textStyle="bold"
+                                tools:text="Rick Sanchez" />
+
+                            <TextView
+                                android:id="@+id/characterDescription"
+                                style="@style/CharacterDetailSectionName"
+                                android:gravity="center"
+                                android:text="@{characterDataDescription}"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@id/characterName"
+                                tools:text="Rick Sanchez" />
+
+
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    </LinearLayout>
+
+                </androidx.cardview.widget.CardView>
+
+                <!-- Comics & Series Sections -->
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/constraintLayoutFirstSection"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                <androidx.cardview.widget.CardView
+                    style="@style/CharacterDetailLocationSectionCard"
+                    android:id="@+id/parentComics"
+                    android:layout_height="@dimen/character_detail_location_height"
+                    android:layout_width="0dp"
+                    android:layout_marginStart="8dp"
+                    app:layout_constraintEnd_toStartOf="@+id/parentSeries"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    card_view:cardCornerRadius="10dp"
+                    card_view:cardElevation="5dp"
+                    android:onClick="@{() -> activity.onComicClick()}"
+                    card_view:cardUseCompatPadding="true">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="8dp"
+                        android:orientation="vertical">
+
+                        <TextView
+                            style="@style/CharacterDetailSectionTitle"
+                            android:text="@string/TR_COMICS" />
+
+                        <TextView
+                            style="@style/CharacterDetailLocationSectionBody"
+                            android:text="@{characterDataNumComics}"
+                            tools:text="0" />
+
+                    </LinearLayout>
+
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    style="@style/CharacterDetailLocationSectionCard"
+                    android:id="@+id/parentSeries"
+                    android:layout_height="@dimen/character_detail_location_height"
+                    android:layout_width="0dp"
+                    android:layout_marginEnd="8dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/parentComics"
+                    app:layout_constraintTop_toTopOf="parent"
+                    card_view:cardCornerRadius="10dp"
+                    card_view:cardElevation="5dp"
+                    card_view:cardUseCompatPadding="true">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="8dp"
+                        android:orientation="vertical">
+
+                        <TextView
+                            style="@style/CharacterDetailSectionTitle"
+                            android:text="@string/TR_SERIES" />
+
+                        <TextView
+                            style="@style/CharacterDetailLocationSectionBody"
+                            android:text="@{characterDataNumSeries}"
+                            tools:text="0" />
+
+                    </LinearLayout>
+
+                </androidx.cardview.widget.CardView>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                <!-- Stories & Events List Section -->
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/constraintLayoutSecondSection"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <androidx.cardview.widget.CardView
+                        style="@style/CharacterDetailLocationSectionCard"
+                        android:id="@+id/parentStories"
+                        android:layout_height="@dimen/character_detail_location_height"
+                        android:layout_width="0dp"
+                        android:layout_marginStart="8dp"
+                        app:layout_constraintEnd_toStartOf="@+id/parentEvents"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        card_view:cardCornerRadius="10dp"
+                        card_view:cardElevation="5dp"
+                        card_view:cardUseCompatPadding="true">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="8dp"
+                            android:orientation="vertical">
+
+                            <TextView
+                                style="@style/CharacterDetailSectionTitle"
+                                android:text="@string/TR_STORIES" />
+
+                            <TextView
+                                style="@style/CharacterDetailLocationSectionBody"
+                                android:text="@{characterDataNumStories}"
+                                tools:text="0" />
+
+                        </LinearLayout>
+
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        style="@style/CharacterDetailLocationSectionCard"
+                        android:id="@+id/parentEvents"
+                        android:layout_height="@dimen/character_detail_location_height"
+                        android:layout_width="0dp"
+                        android:layout_marginEnd="8dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/parentStories"
+                        app:layout_constraintTop_toTopOf="parent"
+                        card_view:cardCornerRadius="10dp"
+                        card_view:cardElevation="5dp"
+                        card_view:cardUseCompatPadding="true">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="8dp"
+                            android:orientation="vertical">
+
+                            <TextView
+                                style="@style/CharacterDetailSectionTitle"
+                                android:text="@string/TR_EVENTS" />
+
+                            <TextView
+                                style="@style/CharacterDetailLocationSectionBody"
+                                android:text="@{characterDataNumEvents}"
+                                tools:text="0" />
+
+                        </LinearLayout>
+
+                    </androidx.cardview.widget.CardView>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+            </LinearLayout>
+
+        </androidx.core.widget.NestedScrollView>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
+</layout>
