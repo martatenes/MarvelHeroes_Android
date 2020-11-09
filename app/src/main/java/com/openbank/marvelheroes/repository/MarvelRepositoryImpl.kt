@@ -8,6 +8,7 @@ import com.openbank.marvelheroes.model.CharacterResponse
 import com.openbank.marvelheroes.model.Comic
 import com.openbank.marvelheroes.model.ComicResponse
 import com.openbank.marvelheroes.utils.Utils
+import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -21,8 +22,8 @@ class MarvelRepositoryImpl(): MarvelRepository {
     val hash = Utils.md5(timestamp.toString() + "b60968f6d13f859459febb4f88ec6e28edfc4e00" + "f4e2c2fffedd8b809f62cd0efb4236ce")
 
     private var characters = MutableLiveData<List<Character>>()
-    private var error = MutableLiveData<Throwable>()
     private var comics = MutableLiveData<List<Comic>>()
+
 
     override fun getCharacters(): MutableLiveData<List<Character>>{
         return characters
@@ -34,32 +35,42 @@ class MarvelRepositoryImpl(): MarvelRepository {
         val charactersList: ArrayList<Character>? = ArrayList<Character>()
         val apiAdapter = ApiAdapter()
         val apiService = apiAdapter.getClientService()
-        val call = apiService.getCharacters(timestamp.toString(), "f4e2c2fffedd8b809f62cd0efb4236ce", hash, 50)
 
-
-       call.enqueue( object: Callback<CharacterResponse> {
-           override fun onFailure(call: Call<CharacterResponse>, t: Throwable) {
+        val call = apiService.getCharacters(
+            timestamp.toString(),
+            "f4e2c2fffedd8b809f62cd0efb4236ce",
+            hash,
+            50
+        )
+        call.enqueue( object: Callback<CharacterResponse> {
+            override fun onFailure(call: Call<CharacterResponse>, t: Throwable) {
                 Log.e("ERROR: ", t.message!!)
                 t.stackTrace
+                //TODO: Tratar errores de servicio
             }
 
 
             override fun onResponse(call: Call<CharacterResponse>, response: Response<CharacterResponse>) {
 
-                //TODO: Tratar errores de cliente
+                if (response.isSuccessful) {
 
-                response.body().let {
-                    it!!.data.results.forEach { character: Character ->
-                        charactersList?.add(character)
+                    response.body().let {
+                        it!!.data.results.forEach { character: Character ->
+                            charactersList?.add(character)
+                        }
+                        characters.value = charactersList
+
                     }
-                    characters.value = charactersList
-
+                }
+                else{
+                    //TODO: Tratar errores de cliente
                 }
 
             }
 
         })
     }
+
 
 
 
@@ -74,7 +85,8 @@ class MarvelRepositoryImpl(): MarvelRepository {
             override fun onFailure(call: Call<ComicResponse>, t: Throwable) {
                 Log.e("ERROR: ", t.message!!)
                 t.stackTrace
-                error.value = t
+
+                //TODO: Tratar errores de servicio
             }
 
 
@@ -89,7 +101,6 @@ class MarvelRepositoryImpl(): MarvelRepository {
                     }
                 }
                 else{
-
                     //TODO: Tratar errores de cliente
                 }
 

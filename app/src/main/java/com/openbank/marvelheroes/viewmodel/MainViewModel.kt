@@ -3,6 +3,7 @@ package com.openbank.marvelheroes.viewmodel
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
 import androidx.databinding.ObservableBoolean
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.openbank.marvelheroes.R
@@ -10,15 +11,16 @@ import com.openbank.marvelheroes.model.Character
 import com.openbank.marvelheroes.model.CharacterObservable
 import com.openbank.marvelheroes.adapter.CharactersAdapter
 import com.squareup.picasso.Picasso
+import kotlinx.coroutines.Dispatchers
 
-class CharactersViewModel: ViewModel(){
+
+class MainViewModel: ViewModel(){
 
     private var marvelObservable: CharacterObservable = CharacterObservable()
     private var charactersAdapter: CharactersAdapter? = null
     private var selected: MutableLiveData<Character>? = MutableLiveData()
     val isLoading = ObservableBoolean()
 
-    /* onRefresh() - Needs to be public for Databinding! */
     fun onRefresh() {
         isLoading.set(true)
         callCharacters()
@@ -28,6 +30,8 @@ class CharactersViewModel: ViewModel(){
         isLoading.set(true)
         marvelObservable.callCharacters()
     }
+
+
 
     fun getCharacters(): MutableLiveData<List<Character>>{
         isLoading.set(false)

@@ -4,6 +4,7 @@ import androidx.databinding.BaseObservable
 import androidx.lifecycle.MutableLiveData
 import com.openbank.marvelheroes.repository.MarvelRepository
 import com.openbank.marvelheroes.repository.MarvelRepositoryImpl
+import okhttp3.ResponseBody
 
 class CharacterObservable: BaseObservable(){
     private var marvelRespository: MarvelRepository = MarvelRepositoryImpl()
@@ -17,6 +18,7 @@ class CharacterObservable: BaseObservable(){
     fun getCharacters(): MutableLiveData<List<Character>> {
         return marvelRespository.getCharacters()
     }
+
 
 
 }

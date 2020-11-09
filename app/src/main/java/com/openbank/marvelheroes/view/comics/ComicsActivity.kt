@@ -47,6 +47,7 @@ class ComicsActivity : AppCompatActivity() {
     fun initUI(){
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowHomeEnabled(true)
+        supportActionBar?.title = getString(R.string.TR_COMICS)
     }
 
     override fun onSupportNavigateUp(): Boolean {

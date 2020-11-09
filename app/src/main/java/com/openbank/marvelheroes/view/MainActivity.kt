@@ -14,11 +14,11 @@ import com.openbank.marvelheroes.databinding.ActivityMainBinding
 import com.openbank.marvelheroes.model.Character
 import com.openbank.marvelheroes.utils.Constants
 import com.openbank.marvelheroes.view.detail.DetailActivity
-import com.openbank.marvelheroes.viewmodel.CharactersViewModel
+import com.openbank.marvelheroes.viewmodel.MainViewModel
 
 class MainActivity : AppCompatActivity(){
 
-    private var charactersViewModel: CharactersViewModel? = CharactersViewModel()
+    private var mainViewModel: MainViewModel? = MainViewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,15 +26,15 @@ class MainActivity : AppCompatActivity(){
 
         initBindings()
 
-        charactersViewModel?.callCharacters()
+        mainViewModel?.callCharacters()
 
         //Observables
-        charactersViewModel?.getCharacters()?.observe(this, {characters: List<Character> ->
-            charactersViewModel?.setCharactersInRecyclerAdapter(characters)
+        mainViewModel?.getCharacters()?.observe(this, {characters: List<Character> ->
+            mainViewModel?.setCharactersInRecyclerAdapter(characters)
         })
 
         // Click on a comic
-        charactersViewModel?.getSelected()?.observe(this, {character: Character ->
+        mainViewModel?.getSelected()?.observe(this, {character: Character ->
             val intent = Intent(this, DetailActivity::class.java).apply {
                 putExtra(Constants.EXTRA_CHARACTER, character as Parcelable)
             }
@@ -47,9 +47,9 @@ class MainActivity : AppCompatActivity(){
         val activityMainBinding: ActivityMainBinding =
             DataBindingUtil.setContentView(this, R.layout.activity_main)
 
-        charactersViewModel =
-            ViewModelProvider.NewInstanceFactory().create(CharactersViewModel::class.java)
-        activityMainBinding.model = charactersViewModel
+        mainViewModel =
+            ViewModelProvider.NewInstanceFactory().create(MainViewModel::class.java)
+        activityMainBinding.model = mainViewModel
         activityMainBinding.rvCharacters.apply {
             layoutManager = GridLayoutManager(context, 2)
         }

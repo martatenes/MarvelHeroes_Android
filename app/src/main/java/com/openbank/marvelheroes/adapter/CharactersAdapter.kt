@@ -6,11 +6,11 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
 import com.openbank.marvelheroes.model.Character
-import com.openbank.marvelheroes.viewmodel.CharactersViewModel
+import com.openbank.marvelheroes.viewmodel.MainViewModel
 
 
 
-class CharactersAdapter(var charactersViewModel: CharactersViewModel, var resource: Int): RecyclerView.Adapter<CharactersAdapter.CharacterViewHolder>(){
+class CharactersAdapter(var charactersViewModel: MainViewModel, var resource: Int): RecyclerView.Adapter<CharactersAdapter.CharacterViewHolder>(){
 
     var characters: List<Character>? = null
 
@@ -23,7 +23,7 @@ class CharactersAdapter(var charactersViewModel: CharactersViewModel, var resour
             this.binding = binding
         }
 
-        fun setDataCard(charactersViewModel: CharactersViewModel, position: Int){
+        fun setDataCard(charactersViewModel: MainViewModel, position: Int){
             binding?.setVariable(com.openbank.marvelheroes.BR.model, charactersViewModel)
             binding?.setVariable(com.openbank.marvelheroes.BR.position, position)
             binding?.executePendingBindings()
